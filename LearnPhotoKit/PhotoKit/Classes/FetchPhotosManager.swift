@@ -34,4 +34,21 @@ class FetchPhotosManager {
         
         imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil, resultHandler: resultHandler)
     }
+    
+    func requestImageDetailInfo(for asset: PHAsset, resultHandler: @escaping (Data?, String?, CGImagePropertyOrientation, [AnyHashable : Any]?) -> Void) -> PHImageRequestID {
+        
+        let options = PHImageRequestOptions()
+        options.version = .original
+        options.deliveryMode = .highQualityFormat
+        
+        
+        return imageManager.requestImageDataAndOrientation(for: asset, options: options, resultHandler: resultHandler)
+        
+        
+        
+    }
 }
+      
+
+
+

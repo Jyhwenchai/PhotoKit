@@ -14,6 +14,5 @@ extension PHFetchOptions {
         let option = PHFetchOptions()
         option.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         return option
-        
     }
 }

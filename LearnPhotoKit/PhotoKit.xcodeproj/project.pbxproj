@@ -21,6 +21,10 @@
 		662D98D42477C02400553281 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D98D32477C02400553281 /* ImageCollectionViewCell.swift */; };
 		662D98D62477CB2000553281 /* SharePhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D98D52477CB2000553281 /* SharePhotoLibraryViewController.swift */; };
 		662D98DC2477CE7C00553281 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D98DB2477CE7C00553281 /* UIColor+Extension.swift */; };
+		66892351247DFC9700AF894E /* SelectAssetInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66892350247DFC9700AF894E /* SelectAssetInfoViewController.swift */; };
+		66892353247E189B00AF894E /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66892352247E189B00AF894E /* ImageDetailViewController.swift */; };
+		66892356247E368300AF894E /* ImageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66892355247E368300AF894E /* ImageInfo.swift */; };
+		66892373247FBEF500AF894E /* PhotoAlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66892372247FBEF500AF894E /* PhotoAlbumsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +45,10 @@
 		662D98D32477C02400553281 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		662D98D52477CB2000553281 /* SharePhotoLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoLibraryViewController.swift; sourceTree = "<group>"; };
 		662D98DB2477CE7C00553281 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		66892350247DFC9700AF894E /* SelectAssetInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetInfoViewController.swift; sourceTree = "<group>"; };
+		66892352247E189B00AF894E /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
+		66892355247E368300AF894E /* ImageInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfo.swift; sourceTree = "<group>"; };
+		66892372247FBEF500AF894E /* PhotoAlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,12 +82,15 @@
 		662D988D247781FC00553281 /* PhotoKit */ = {
 			isa = PBXGroup;
 			children = (
+				66892354247E366800AF894E /* Model */,
 				662D988E247781FC00553281 /* AppDelegate.swift */,
 				662D9890247781FC00553281 /* SceneDelegate.swift */,
 				662D9892247781FC00553281 /* ViewController.swift */,
 				662D98D72477CBA100553281 /* 请求获取照片库权限 */,
 				662D98D82477CBBF00553281 /* 简单的获取照片资产集合 */,
 				662D98D92477CBDC00553281 /* 监听照片库的资产更新 */,
+				6689234F247DFC4300AF894E /* 获取选中资产的具体信息 */,
+				66892371247FBEB800AF894E /* 相册列表 */,
 				662D98DA2477CE6300553281 /* Utils */,
 				662D98A42477A7AE00553281 /* Classes */,
 				662D98A22477823900553281 /* Resources */,
@@ -139,6 +150,31 @@
 				662D98DB2477CE7C00553281 /* UIColor+Extension.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		6689234F247DFC4300AF894E /* 获取选中资产的具体信息 */ = {
+			isa = PBXGroup;
+			children = (
+				66892350247DFC9700AF894E /* SelectAssetInfoViewController.swift */,
+				66892352247E189B00AF894E /* ImageDetailViewController.swift */,
+			);
+			path = "获取选中资产的具体信息";
+			sourceTree = "<group>";
+		};
+		66892354247E366800AF894E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				66892355247E368300AF894E /* ImageInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		66892371247FBEB800AF894E /* 相册列表 */ = {
+			isa = PBXGroup;
+			children = (
+				66892372247FBEF500AF894E /* PhotoAlbumsViewController.swift */,
+			);
+			path = "相册列表";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +249,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				662D9893247781FC00553281 /* ViewController.swift in Sources */,
+				66892353247E189B00AF894E /* ImageDetailViewController.swift in Sources */,
 				662D98D22477AEFC00553281 /* ImageListViewController.swift in Sources */,
+				66892356247E368300AF894E /* ImageInfo.swift in Sources */,
 				662D988F247781FC00553281 /* AppDelegate.swift in Sources */,
 				662D98DC2477CE7C00553281 /* UIColor+Extension.swift in Sources */,
 				662D98A62477A7D400553281 /* PhotoAuthorization.swift in Sources */,
@@ -221,8 +259,10 @@
 				662D98CE2477ADB000553281 /* PhFetchOptions+Extension.swift in Sources */,
 				662D98D42477C02400553281 /* ImageCollectionViewCell.swift in Sources */,
 				662D98D62477CB2000553281 /* SharePhotoLibraryViewController.swift in Sources */,
+				66892351247DFC9700AF894E /* SelectAssetInfoViewController.swift in Sources */,
 				662D9891247781FC00553281 /* SceneDelegate.swift in Sources */,
 				662D98CC2477ABAF00553281 /* FetchPhotosManager.swift in Sources */,
+				66892373247FBEF500AF894E /* PhotoAlbumsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

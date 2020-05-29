@@ -11,6 +11,7 @@ import UIKit
 class RootViewController: UITableViewController {
 
     @IBOutlet weak var requestAuthorizationCell: UITableViewCell!
+    @IBOutlet weak var albumsListCell: UITableViewCell!
     
     var sas: Suas? = Suas()
     
@@ -21,6 +22,11 @@ class RootViewController: UITableViewController {
             photoAuthorization {
                 print("Photo Auth successs.")
             }
+        }
+        
+        albumsListCell.tapGesture { [unowned self] in
+            let controller = PhotoAlbumsViewController()
+            self.present(controller, animated: true, completion: nil)
         }
     }
 
