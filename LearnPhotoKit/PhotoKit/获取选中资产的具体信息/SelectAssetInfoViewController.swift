@@ -13,7 +13,7 @@ private let reuseIdentifier = "Cell"
 
 class SelectAssetInfoViewController: UIViewController {
 
-    var fetchResult: PHFetchResult<PHAsset>!
+    var fetchResult: PHFetchResult<PHAsset> = PHFetchResult<PHAsset>()
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {

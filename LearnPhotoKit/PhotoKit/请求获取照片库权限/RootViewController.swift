@@ -25,9 +25,13 @@ class RootViewController: UITableViewController {
         }
         
         albumsListCell.tapGesture { [unowned self] in
-            let controller = PhotoAlbumsViewController()
-            self.present(controller, animated: true, completion: nil)
+//            let controller = PhotoAlbumsViewController()
+            let controller = AlbumListViewController()
+            let nav = UINavigationController(rootViewController: controller)
+            self.present(nav, animated: true, completion: nil)
         }
+        
+       
     }
 
     

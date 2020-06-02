@@ -42,7 +42,13 @@ class FetchPhotosManager {
         options.deliveryMode = .highQualityFormat
         
         
-        return imageManager.requestImageDataAndOrientation(for: asset, options: options, resultHandler: resultHandler)
+        if #available(iOS 13, *) {
+            return imageManager.requestImageDataAndOrientation(for: asset, options: options, resultHandler: resultHandler)
+        } else {
+            return imageManager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { image, info in
+                resultHandler(image?.pngData(), nil, .up, info)
+            }
+        }
         
         
         

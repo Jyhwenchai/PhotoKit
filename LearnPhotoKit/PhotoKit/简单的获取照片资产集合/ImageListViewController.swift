@@ -13,7 +13,7 @@ private let reuseIdentifier = "Cell"
 
 class ImageListViewController: UICollectionViewController {
 
-    var fetchResult: PHFetchResult<PHAsset>!
+    var fetchResult: PHFetchResult<PHAsset> = PHFetchResult<PHAsset>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ class ImageListViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return fetchResult.count
+        return fetchResult.count 
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -48,5 +48,9 @@ class ImageListViewController: UICollectionViewController {
         return cell
     }
     
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        dismiss(animated: true, completion: nil)
+    }
     
 }

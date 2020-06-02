@@ -11,6 +11,10 @@ import Photos
 
 class PhotoAlbumsViewController: UITableViewController {
     
+    var albumArray = [Album]()
+    var totoCount = 0
+    
+    
   enum Section: Int {
             case allPhotos = 0
             case smartAlbums
@@ -42,8 +46,8 @@ class PhotoAlbumsViewController: UITableViewController {
             let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addAlbum))
             self.navigationItem.rightBarButtonItem = addButton
             
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.allPhotos.rawValue)
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.collection.rawValue)
+            tableView.register(AlbumCell.self, forCellReuseIdentifier: CellIdentifier.allPhotos.rawValue)
+            tableView.register(AlbumCell.self, forCellReuseIdentifier: CellIdentifier.collection.rawValue)
             
             // Create a PHFetchResult object for each section in the table view.
             let allPhotosOptions = PHFetchOptions()
@@ -52,6 +56,25 @@ class PhotoAlbumsViewController: UITableViewController {
             smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
             userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
             PHPhotoLibrary.shared().register(self)
+            
+            totoCount = allPhotos.count
+            
+            for index in 0..<smartAlbums.count {
+                let collection = smartAlbums.object(at: index)
+                let fetchAssets = PHAsset.fetchAssets(in: collection, options: nil)
+                let asset = fetchAssets.count > 0 ? fetchAssets.lastObject : nil
+                
+                if let asset = asset {
+                    PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: 50, height: 50), contentMode: .aspectFill, options: nil) { (image, info) in
+                        let album = Album(asset, coverImage: image, name: collection.assetCollectionSubtype.localizedTitle, count: fetchAssets.count)
+                        self.albumArray.append(album)
+                    }
+                } else {
+                    let album = Album(asset, coverImage: UIColor.random.image(CGSize(width: 50, height: 50)), name: collection.assetCollectionSubtype.localizedTitle, count: fetchAssets.count)
+                    self.albumArray.append(album)
+                }
+                
+            }
         }
         
         /// - Tag: UnregisterChangeObserver
@@ -115,46 +138,59 @@ class PhotoAlbumsViewController: UITableViewController {
 //            }
         }
         
-        // MARK: Table View
-        
-        override func numberOfSections(in tableView: UITableView) -> Int {
-            return Section.count
-        }
-        
-        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            switch Section(rawValue: section)! {
-            case .allPhotos: return 1
-            case .smartAlbums: return smartAlbums.count
-            case .userCollections: return userCollections.count
-            }
-        }
-        
-        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            switch Section(rawValue: indexPath.section)! {
-            case .allPhotos:
-                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.allPhotos.rawValue, for: indexPath)
-                cell.textLabel!.text = NSLocalizedString("All Photos", comment: "")
-                return cell
-                
-            case .smartAlbums:
-                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.collection.rawValue, for: indexPath)
-                let collection = smartAlbums.object(at: indexPath.row)
-                cell.textLabel!.text = collection.localizedTitle
-                return cell
-                
-            case .userCollections:
-                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.collection.rawValue, for: indexPath)
-                let collection = userCollections.object(at: indexPath.row)
-                cell.textLabel!.text = collection.localizedTitle
-                return cell
-            }
-        }
-        
-        override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            return sectionLocalizedTitles[section]
-        }
-        
+    // MARK: Table View
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return Section.count
     }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch Section(rawValue: section)! {
+        case .allPhotos: return 1
+        case .smartAlbums: return smartAlbums.count
+        case .userCollections: return userCollections.count
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch Section(rawValue: indexPath.section)! {
+        case .allPhotos:
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.allPhotos.rawValue, for: indexPath)
+            cell.textLabel!.text = NSLocalizedString("All Photos", comment: "")
+            return cell
+            
+        case .smartAlbums:
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.collection.rawValue, for: indexPath) as! AlbumCell
+            //                let collection = smartAlbums.object(at: indexPath.row)
+            let album = albumArray[indexPath.row]
+            cell.coverImageView.image = album.coverImage
+            cell.titleLabel.text = album.name + "(\(album.count))"
+            
+            return cell
+            
+        case .userCollections:
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.collection.rawValue, for: indexPath) as! AlbumCell
+            let collection = userCollections.object(at: indexPath.row)
+           
+            cell.coverImageView.image = UIColor.random.image(CGSize(width: 50, height: 50))
+            cell.titleLabel.text = collection.localizedTitle
+            return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionLocalizedTitles[section]
+    }
+        
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1 {
+            return 60
+        } else {
+            return 20
+        }
+    }
+}
 
     // MARK: PHPhotoLibraryChangeObserver
 

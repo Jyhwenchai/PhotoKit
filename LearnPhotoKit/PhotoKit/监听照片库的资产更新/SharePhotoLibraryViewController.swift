@@ -13,7 +13,7 @@ private let reuseIdentifier = "Cell"
 
 class SharePhotoLibraryViewController: UIViewController {
 
-    var fetchResult: PHFetchResult<PHAsset>!
+    var fetchResult: PHFetchResult<PHAsset> = PHFetchResult<PHAsset>()
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -68,6 +68,12 @@ extension SharePhotoLibraryViewController: UICollectionViewDataSource {
          return cell
      }
 
+}
+
+extension SharePhotoLibraryViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 /// 当照片库的资产发生改变时将调用此方法
