@@ -28,10 +28,10 @@ class RootViewController: UITableViewController {
 //            let controller = PhotoAlbumsViewController()
             let controller = AlbumListViewController()
             let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
             self.present(nav, animated: true, completion: nil)
+            
         }
-        
-       
     }
 
     

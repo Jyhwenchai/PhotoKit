@@ -30,6 +30,8 @@
 
 4. 监听资产的变化，同步最新资产到列表
 
+5. check mark
+
 #### Design
 
 **PhotoManager**

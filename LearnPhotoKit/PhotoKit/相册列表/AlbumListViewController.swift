@@ -45,6 +45,8 @@ class AlbumListViewController: UIViewController {
     }
     
     func initNav() {
+        self.title = "相册"
+        navigationController?.navigationBar.tintColor = .orange
         let barItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(dimissAction))
         barItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.orange], for: .normal)
         navigationItem.rightBarButtonItem = barItem
@@ -137,5 +139,11 @@ extension AlbumListViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         checkIndex = indexPath.row
         tableView.reloadData()
+        
+        let controller = PhotoCollectionViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.album = albums[indexPath.row]
+        navigationController?.pushViewController(controller, animated: true)
+        
     }
 }

@@ -34,6 +34,11 @@
 		668923992485FE1200AF894E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668923982485FE1200AF894E /* Constant.swift */; };
 		6689239B24861D8C00AF894E /* AlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6689239A24861D8C00AF894E /* AlbumListViewController.swift */; };
 		6689239D248624AF00AF894E /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6689239C248624AF00AF894E /* AlbumModel.swift */; };
+		6689239F24865FD200AF894E /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6689239E24865FD200AF894E /* PhotoCollectionViewController.swift */; };
+		668923AD2488842200AF894E /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668923AC2488842200AF894E /* PhotoCell.swift */; };
+		668923B124889E9300AF894E /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668923B024889E9200AF894E /* RadioButton.swift */; };
+		668923B32488E6B200AF894E /* PhotoToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668923B22488E6B200AF894E /* PhotoToolBar.swift */; };
+		668923B52488F94B00AF894E /* OrignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668923B42488F94B00AF894E /* OrignView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +84,11 @@
 		668923982485FE1200AF894E /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		6689239A24861D8C00AF894E /* AlbumListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListViewController.swift; sourceTree = "<group>"; };
 		6689239C248624AF00AF894E /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
+		6689239E24865FD200AF894E /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
+		668923AC2488842200AF894E /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		668923B024889E9200AF894E /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		668923B22488E6B200AF894E /* PhotoToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoToolBar.swift; sourceTree = "<group>"; };
+		668923B42488F94B00AF894E /* OrignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrignView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +229,11 @@
 				66892372247FBEF500AF894E /* PhotoAlbumsViewController.swift */,
 				668923802484A82500AF894E /* AlbumCell.swift */,
 				6689239A24861D8C00AF894E /* AlbumListViewController.swift */,
+				6689239E24865FD200AF894E /* PhotoCollectionViewController.swift */,
+				668923AC2488842200AF894E /* PhotoCell.swift */,
+				668923B024889E9200AF894E /* RadioButton.swift */,
+				668923B22488E6B200AF894E /* PhotoToolBar.swift */,
+				668923B42488F94B00AF894E /* OrignView.swift */,
 			);
 			path = "相册列表";
 			sourceTree = "<group>";
@@ -338,21 +353,26 @@
 				6689239B24861D8C00AF894E /* AlbumListViewController.swift in Sources */,
 				66892353247E189B00AF894E /* ImageDetailViewController.swift in Sources */,
 				662D98D22477AEFC00553281 /* ImageListViewController.swift in Sources */,
+				668923AD2488842200AF894E /* PhotoCell.swift in Sources */,
 				668923972485FD5C00AF894E /* PhotoFilters.swift in Sources */,
 				66892356247E368300AF894E /* ImageInfo.swift in Sources */,
 				668923812484A82500AF894E /* AlbumCell.swift in Sources */,
+				668923B52488F94B00AF894E /* OrignView.swift in Sources */,
 				662D988F247781FC00553281 /* AppDelegate.swift in Sources */,
 				668923992485FE1200AF894E /* Constant.swift in Sources */,
 				668923792480E91A00AF894E /* PHAssetCollectionSubtype+localizedTitle.swift in Sources */,
 				662D98DC2477CE7C00553281 /* UIColor+Extension.swift in Sources */,
+				668923B32488E6B200AF894E /* PhotoToolBar.swift in Sources */,
 				6689237F2484964100AF894E /* Album.swift in Sources */,
 				662D98A62477A7D400553281 /* PhotoAuthorization.swift in Sources */,
 				662D98D02477AEE100553281 /* RootViewController.swift in Sources */,
+				668923B124889E9300AF894E /* RadioButton.swift in Sources */,
 				662D98CE2477ADB000553281 /* PhFetchOptions+Extension.swift in Sources */,
 				668923852485E38100AF894E /* PhotoManager.swift in Sources */,
 				662D98D42477C02400553281 /* ImageCollectionViewCell.swift in Sources */,
 				662D98D62477CB2000553281 /* SharePhotoLibraryViewController.swift in Sources */,
 				66892351247DFC9700AF894E /* SelectAssetInfoViewController.swift in Sources */,
+				6689239F24865FD200AF894E /* PhotoCollectionViewController.swift in Sources */,
 				6689239D248624AF00AF894E /* AlbumModel.swift in Sources */,
 				662D98CC2477ABAF00553281 /* FetchPhotosManager.swift in Sources */,
 				66892373247FBEF500AF894E /* PhotoAlbumsViewController.swift in Sources */,
