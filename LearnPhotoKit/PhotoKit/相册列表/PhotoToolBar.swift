@@ -12,7 +12,6 @@ class PhotoToolBar: UIView {
     
     private var contentView = UIView()
     
-    
     var previewButton: UIButton = {
         let button = UIButton()
         button.setTitle("预览", for: .normal)
@@ -32,6 +31,15 @@ class PhotoToolBar: UIView {
     
     var sendButton: UIButton = {
         let button = UIButton()
+        let value: CGFloat = 83.0 / 255
+        let titleColor: CGFloat = 171.0 / 255
+        button.backgroundColor = .systemGreen
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitle("发送", for: .normal)
+        button.layer.cornerRadius = 5.0
+        button.isHidden = true
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         return button
     }()
     
@@ -61,6 +69,16 @@ class PhotoToolBar: UIView {
         return vibrancyView
     }()
     
+    var isMultipleSelection: Bool = false
+    
+    var selectedNumbers: Int = 0 {
+        didSet {
+            let text = isMultipleSelection ? "发送(\(selectedNumbers))" : "发送"
+            sendButton.setTitle(text, for: .normal)
+            sendButton.isHidden = selectedNumbers <= 0
+            setNeedsLayout()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -70,6 +88,7 @@ class PhotoToolBar: UIView {
         contentView.addSubview(previewButton)
         contentView.addSubview(originView)
         contentView.addSubview(placeholderButton)
+        contentView.addSubview(sendButton)
         
         vibrancyView.contentView.addSubview(placeholderButton)
         blurView.contentView.addSubview(vibrancyView)
@@ -94,6 +113,10 @@ class PhotoToolBar: UIView {
         originView.center.x = contentView.center.x
         
         placeholderButton.frame = CGRect(x: bounds.width - 55 - 15, y: (contentView.bounds.height - 32) / 2.0, width: 55, height: 32)
+        
+        size = sendButton.sizeThatFits(.zero)
+        size.height = 32
+        sendButton.frame = CGRect(x: bounds.width - size.width - 15, y: (contentView.bounds.height - 32) / 2.0, width: size.width, height: size.height)
 
     }
     

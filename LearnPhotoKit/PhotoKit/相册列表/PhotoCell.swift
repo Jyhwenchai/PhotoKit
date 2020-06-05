@@ -32,6 +32,13 @@ class PhotoCell: UICollectionViewCell {
     
     var selectedClosure: (() -> ())?
     
+    var disableAnimate: Bool = false {
+        didSet {
+            radioButton.disableAnimate = disableAnimate
+        }
+    }
+    
+    
     override var isSelected: Bool {
         didSet {
             updateStyle()
@@ -86,6 +93,7 @@ class PhotoCell: UICollectionViewCell {
     
     @objc
     private func radioAction() {
+        disableAnimate = isSelected
         isSelected.toggle()
         selectedClosure!()
     }

@@ -27,7 +27,6 @@ class PhotoCollectionViewController: UIViewController {
     
     var toolBar: PhotoToolBar = PhotoToolBar()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,8 +77,12 @@ class PhotoCollectionViewController: UIViewController {
     }
     
     @objc func changeEditStyle(_ sender: UIButton) {
+        singleSelectionIndex = nil
+        mutableSelectionIndexes = []
         collectionView.allowsMultipleSelection.toggle()
         navigationItem.rightBarButtonItems!.first?.title = collectionView.allowsMultipleSelection ? "single" : "mutable"
+        collectionView.reloadData()
+        
     }
     
 
@@ -99,10 +102,20 @@ class PhotoCollectionViewController: UIViewController {
             } else {
                 mutableSelectionIndexes.removeAll { $0 == indexPath.item }
                 cell.radioButton.textLabel.text = ""
+                collectionView.reloadData()
             }
         } else {
             singleSelectionIndex = cell.isSelected ? indexPath.item : nil
+            collectionView.reloadData()
         }
+    }
+    
+    func updateToolBarState() {
+        toolBar.isMultipleSelection = collectionView.allowsMultipleSelection
+        toolBar.previewButton.isEnabled = mutableSelectionIndexes.count > 0
+        toolBar.selectedNumbers = collectionView.allowsMultipleSelection
+            ? mutableSelectionIndexes.count
+            : (singleSelectionIndex == nil ? 0 : 1)
     }
     
     deinit {
@@ -114,53 +127,58 @@ class PhotoCollectionViewController: UIViewController {
 extension PhotoCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-           return assets != nil ? assets.count : 0
-       }
-
-       func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoCell
-           // 获取单个资源
-           let asset = assets[indexPath.row]
-
-           if case PHAssetMediaType.video = asset.mediaType {
-               let minute = Int(asset.duration / 60)
-               let second = Int(asset.duration - Double(minute) * 60)
-               cell.timeLabel.text = String(format: "%02d:%02d", minute, second)
-               cell.timeLabel.sizeToFit()
-           } else {
-               cell.timeLabel.text = nil
-           }
-           
-           FetchPhotosManager.default.requestImage(for: asset, targetSize: cell.frame.size) { (image, _) in
-               cell.imageView.image = image
-           }
-           
-           if collectionView.allowsMultipleSelection {
-               cell.isSelected = mutableSelectionIndexes.contains(indexPath.item)
-           } else {
-               if let singleSelectedIndex = singleSelectionIndex,
-                   singleSelectedIndex == indexPath.item {
-                   cell.imageView.alpha = 0.5
-               } else {
-                   cell.imageView.alpha = 1.0
-               }
-           }
-           
-           let selectedIndex = mutableSelectionIndexes.firstIndex { $0 == indexPath.item }
-           if let index = selectedIndex {
-               cell.radioButton.textLabel.text = "\(index + 1)"
-           } else {
-               cell.radioButton.textLabel.text = ""
-           }
-           
-           cell.selectedClosure = { [weak self] in
-               guard let self = self else { return }
-               self.updatePhotoSelectionState(for: cell, indexPath: indexPath)
-           }
-           
-           return cell
-       }
+        return assets != nil ? assets.count : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoCell
+        // 获取单个资源
+        let asset = assets[indexPath.row]
+        
+        if case PHAssetMediaType.video = asset.mediaType {
+            let minute = Int(asset.duration / 60)
+            let second = Int(asset.duration - Double(minute) * 60)
+            cell.timeLabel.text = String(format: "%02d:%02d", minute, second)
+            cell.setNeedsLayout()
+            cell.layoutIfNeeded()
+        } else {
+            cell.timeLabel.text = nil
+        }
+        
+        // request and populate image
+        FetchPhotosManager.default.requestImage(for: asset, targetSize: cell.frame.size) { (image, _) in
+            cell.imageView.image = image
+        }
+        
+        if collectionView.allowsMultipleSelection {
+            cell.disableAnimate = true
+            cell.radioButton.style = .text
+            cell.isSelected = mutableSelectionIndexes.contains(indexPath.item)
+        } else {
+            cell.disableAnimate = false
+            cell.radioButton.style = .image
+            cell.radioButton.imageView.image = UIImage(named: "icons8-checkmark18")
+            if let singleSelectedIndex = singleSelectionIndex {
+                cell.isSelected = singleSelectedIndex == indexPath.item
+            }
+        }
+        
+        let selectedIndex = mutableSelectionIndexes.firstIndex { $0 == indexPath.item }
+        if let index = selectedIndex {
+            cell.radioButton.textLabel.text = "\(index + 1)"
+        } else {
+            cell.radioButton.textLabel.text = ""
+        }
+        
+        cell.selectedClosure = { [weak self] in
+            guard let self = self else { return }
+            self.updatePhotoSelectionState(for: cell, indexPath: indexPath)
+            self.updateToolBarState()
+        }
+        
+        return cell
+    }
     
 }
 
